@@ -1,0 +1,359 @@
+@charset "utf-8";
+
+html {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+body {
+  width: 700px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+}
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.4em;
+}
+h3 {
+  font-size: 1.3em;
+}
+h4 {
+  font-size: 1.2em;
+}
+h5 {
+  font-size: 1.1em;
+}
+h6 {
+  font-size: 1.0em;
+}
+
+header>h1, section>h1 {
+  border-bottom: 3px solid #e0e0e0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+header h2, section h2 {
+  font-size: 1.0em;
+  margin: 0;
+}
+
+hr {
+  display: none;
+}
+
+button {
+  padding: 3px 10px;
+}
+input, button {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+}
+input[type="file"] {
+  padding: 1px;
+  width: 300px;
+  background-color: #f0f0f0;
+}
+input[type="number"] {
+  font-family: D2Coding, 나눔고딕코딩, monospace;
+}
+
+section {
+  margin-bottom: 10px;
+}
+
+ul {
+  font-size: 0;
+  margin-bottom: 5px;
+}
+li {
+  font-size: 1rem;
+}
+header li, section li {
+  font-size: 0.85rem;
+}
+ul.inline>li {
+  display: inline;
+}
+ul.moreright>li {
+  margin-right: 1em;
+}
+ul.moreright>li:last-child {
+  margin-right: 0;
+}
+ul.nobullet>li {
+  list-style: none;
+}
+ul.noindent {
+  margin-left: 0;
+  padding-left: 0;
+}
+ul.nolineheight>li, ul.nolineheight>ul {
+  margin-bottom: 5px;
+  line-height: 0;
+}
+ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
+  margin-bottom: 0;
+}
+
+
+/************************************************/
+
+
+/**** header ****/
+
+#version-label, #session-label {
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+#version-label::before, #session-label::before {
+  content: "/ ";
+}
+#window-button {
+  position: relative;
+  float: right;
+  top: 0.5em;
+}
+
+
+/**** control-section ****/
+
+#control-section {
+  float: right;
+}
+#control-div {
+  text-align: right;
+}
+#select-bg-label {
+  display: inline-block;
+  margin: 0 0 0 3px;
+  width: 3.5rem;
+  text-align: right;
+  font-family: Consolas, monospace;
+}
+#last-bg-label {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  width: 3rem;
+  text-align: left;
+  font-family: Consolas, monospace;
+  font-size: 0.85em;
+}
+#bg-cut-button, #bg-auto-button {
+  width: 80px;
+  height: 2.5em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  font-weight: bold;
+}
+#pvw-div {
+  float: right;
+  clear: both;
+  display: flex;
+  border: 1px solid #000000;
+  margin: 5px 0 0 5px;
+  width: 160px;
+  height: 120px;
+  background-color: #000000;
+}
+
+
+/**** setting-section ****/
+
+#setting-section {
+}
+#delay-number {
+  width: 3.5em;
+}
+#trans-time-number {
+  width: 2.5em;
+}
+
+
+/**** edit-section ****/
+
+#edit-section {
+}
+#append-file {
+  color: #0050a0;
+  background-color: #e6eef6;
+}
+#send-sel-up-button, #send-sel-down-button {
+  padding: 3px 5px;
+}
+#del-sel-button, #reset-list-button {
+  color: #e00000;
+}
+
+
+/**** list-section ****/
+
+#list-section {
+  clear: both;
+}
+#list-table {
+  border-collapse: collapse;
+  margin: 10px 0;
+  width: 100%;
+}
+#list-table thead, #list-table tbody, #list-table tfoot {
+  border-color: #e0e0e0;
+  border-width: 2px;
+  border-style: solid none;
+}
+#list-table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+#list-table tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+#list-table tr:hover {
+  background-color: #f0f0f0;
+}
+#list-table td {
+  text-align: center;
+  width: 2em;
+  max-width: 2em;
+  overflow: hidden;
+}
+#list-table td:first-child:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+#list-table td:nth-child(2) {
+  text-align: right;
+}
+#list-table td:last-child {
+  text-align: left;
+  width: auto;
+  max-width: 100%;
+}
+#list-table thead th, #list-table tfoot td {
+  background-color: #f0f0f0;
+}
+#list-table th, #list-table td {
+  padding: 5px 10px;
+}
+#list-table tr.pvw {
+  box-shadow: 0 0 0 1.5px #00c000 inset;
+  background-color: #e6fae6;
+}
+#list-table tr.pgm {
+  box-shadow: 0 0 0 1.5px #f00000 inset;
+  background-color: #fee6e6;
+}
+
+
+/**** output-section ****/
+/*
+#output-section {
+  float: right;
+}
+
+#control-div {
+  text-align: right;
+}
+#select-page-label {
+  display: inline-block;
+  margin: 0 0 0 3px;
+  width: 3.5rem;
+  text-align: right;
+  font-family: Consolas, monospace;
+}
+#last-page-label {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  width: 3rem;
+  text-align: left;
+  font-family: Consolas, monospace;
+  font-size: 0.85em;
+}
+#text-cut-button, #text-clear-button {
+  width: 80px;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  font-weight: bold;
+}
+
+#display-div {
+  clear: both;
+  display: flex;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+#pvw-div, #pgm-div {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 5px;
+  width: 230px;
+  min-height: 110px;
+  max-height: 110px;
+  overflow: hidden;
+  cursor: default;
+}
+#pvw-div {
+  margin: 5px 5px 5px 0;
+  outline: #00a000 solid 5px;
+}
+#pgm-div {
+  margin: 5px 0 5px 5px;
+  outline: #808080 solid 5px;
+}
+#pvw-div *::selection, #pgm-div *::selection {
+  background-color: rgba(0, 0, 0, 0);
+}
+#pvw-div *::-moz-selection, #pgm-div *::-moz-selection {
+  background-color: rgba(0, 0, 0, 0);
+}
+.content-display {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+.what-display, .pagenum-display,
+.pagelist-cell-pagenum {
+  position: absolute;
+  bottom: 0;
+  padding: 0 5px;
+  font-family: Consolas, monospace;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.what-display {
+  left: 0;
+  text-align: left;
+}
+.pagenum-display {
+  right: 0;
+  text-align: right;
+}
+*/
+
+
+/**** setting-section ****/
+/*
+#setting-section {
+  margin-right: 515px;
+  font-size: 0.85em;
+}
+#setting-section>div {
+  float: left;
+  margin: 0 5px 5px 0;
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 2px solid #d8d8d8;
+  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.4);
+}
+*/
