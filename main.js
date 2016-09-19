@@ -11,8 +11,42 @@ var
 
 // functions
 
-function wndInit() {
-  //
+function wndInit(e) {
+  if (wnd && !wnd.closed && confirm('송출 창을 닫으려면 확인을 누르세요.')) {
+    wnd.close();
+    return;
+  }
+  wnd = window.open('', 'wnd' + sessionId, 'scrollbar=no');
+  try {
+    wnd.document.write('<!doctype html>' +
+      '<html>' +
+      '<head>' +
+      '<meta charset="utf-8">' +
+      '<title>[송출] HtmlBgPresenter (' + sessionIdShort + ')</title>' +
+      '<link rel="stylesheet" href="presenter.css" type="text/css">' +
+      '</head>' +
+      '<body>' +
+      '<section id="bg-section">' +
+      '<div id="bottom-div"></div>' +
+      '<div id="top-div"></div>' +
+      '</section>' +
+      '<section id="ftb-section"></section>' +
+      '</body>' +
+      '</html>');
+  } catch (err) {
+    if (confirm('송출 창을 다시 띄워야 합니다.\n송출 창을 다시 띄우려면 확인을 누르세요.')) {
+      wnd = window.open('', 'wnd' + sessionId, '');
+      wnd.close();
+      wndInit();
+    }
+    return;
+  }
+  
+  $(wnd)
+    .on('unload', function () {
+      $('#pgm-div').css('outline-color', '');
+      $(wnd).off();
+    });
 }
 
 function bgCutBtnClick() {
@@ -73,8 +107,7 @@ function blurThis(e) {
 // event listeners
 $(document).ready(function () {
   var
-    sessionIdHtml = '<small>' + Math.floor(sessionId / 86400000) + '-</small><b>' + (sessionId % 86400000) + '</b>',
-    pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
+    sessionIdHtml = '<small>' + Math.floor(sessionId / 86400000) + '-</small><b>' + (sessionId % 86400000) + '</b>';
   
   document.title = 'HtmlBgPresenter (' + sessionIdShort + ')';
   $('#session-label').html('세션 ' + sessionIdHtml);
