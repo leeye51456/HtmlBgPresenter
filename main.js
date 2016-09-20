@@ -103,10 +103,12 @@ function moveSelection(e) {
 }
 
 function invertSelection() {
-  //
+  $('#list-tbody').find('input[type="checkbox"]').each(function () {
+    $(this).prop('checked', !($(this).prop('checked')));
+  });
 }
 function uncheckSelection() {
-  //
+  $('#list-tbody').find('input[type="checkbox"]:checked').prop('checked', false);
 }
 function deleteSelection() {
   //
