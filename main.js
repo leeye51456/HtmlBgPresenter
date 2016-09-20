@@ -123,8 +123,11 @@ function listDoubleClick() {
   //
 }
 
-function checkBg(e) {
-  //
+function changeBgCheckbox(e) {
+  $(e.target).find('input').trigger('click');
+}
+function checkboxInTableClick(e) {
+  e.stopPropagation();
 }
 
 
@@ -182,5 +185,6 @@ $(document).ready(function () {
   $('#list-tbody')
     .on('click', 'tr', listClick)
     .on('dblclick', 'tr', listDoubleClick)
-    .on('click', 'td:first-child', checkBg);
+    .on('click', 'td:first-child', changeBgCheckbox)
+    .on('click', 'input[type="checkbox"]', checkboxInTableClick);
 });
