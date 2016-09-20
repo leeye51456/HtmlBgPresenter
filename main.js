@@ -111,10 +111,20 @@ function uncheckSelection() {
   $('#list-tbody').find('input[type="checkbox"]:checked').prop('checked', false);
 }
 function deleteSelection() {
-  //
+  var checkedIndex = [];
+  $('#list-tbody').find('input[type="checkbox"]:checked').each(function () {
+    checkedIndex.unshift(Number($(this).data('index')));
+  });
+  checkedIndex.forEach(function (item) {
+    fileList.splice(item, 1);
+  });
+  $('#list-tbody').html(getFileListHtml());
 }
 function resetList() {
-  //
+  if (confirm('리스트를 비우려면 확인을 누르세요.')) {
+    fileList = [''];
+    $('#list-tbody').html(getFileListHtml());
+  }
 }
 
 function listClick() {
