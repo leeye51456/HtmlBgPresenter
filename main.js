@@ -78,6 +78,7 @@ function displayFileList() {
   for (i = 0; i < len; i += 1) {
     html += getFileListRow(i, fileList[i].type, fileList[i].name);
   }
+  $('#list-tbody').html(html);
 }
 function appendFiles() {
   var
