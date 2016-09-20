@@ -70,7 +70,7 @@ function getFileListRow(index, type, name) {
   }
   return '<tr data-index="' + index + '"><td><input type="checkbox" data-index="' + index + '"></td><td>' + index + '</td><td>' + type + '</td><td>' + name + '</td></tr>';
 }
-function getFileListHtml() {
+function displayFileList() {
   var
     i,
     len = fileList.length,
@@ -78,8 +78,6 @@ function getFileListHtml() {
   for (i = 0; i < len; i += 1) {
     html += getFileListRow(i, fileList[i].type, fileList[i].name);
   }
-  console.log(html);
-  return html;
 }
 function appendFiles() {
   var
@@ -94,7 +92,7 @@ function appendFiles() {
       });
     }
     fileForm.val('');
-    $('#list-tbody').html(getFileListHtml());
+    displayFileList();
   }
 }
 
@@ -118,12 +116,12 @@ function deleteSelection() {
   checkedIndex.forEach(function (item) {
     fileList.splice(item, 1);
   });
-  $('#list-tbody').html(getFileListHtml());
+  displayFileList();
 }
 function resetList() {
   if (confirm('리스트를 비우려면 확인을 누르세요.')) {
     fileList = [''];
-    $('#list-tbody').html(getFileListHtml());
+    displayFileList();
   }
 }
 
