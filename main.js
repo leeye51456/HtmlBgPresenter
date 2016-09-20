@@ -4,7 +4,7 @@
 
 var
   wnd,
-  fileArray = [''],
+  fileList = [''],
   sessionId = Date.now(),
   sessionIdShort = sessionId % 86400000;
 
@@ -64,8 +64,38 @@ function discardSetting() {
   //
 }
 
-function appendFiles(e) {
-  //
+function getFileListRow(index, type, name) {
+  if (index === 0) {
+    return '<tr data-index="0"><td></td><td>0</td><td></td><td>(검은 화면)</td></tr>';
+  }
+  return '<tr data-index="' + index + '"><td><input type="checkbox" data-index="' + index + '"></td><td>' + index + '</td><td>' + type + '</td><td>' + name + '</td></tr>';
+}
+function getFileListHtml() {
+  var
+    i,
+    len = fileList.length,
+    html = '';
+  for (i = 0; i < len; i += 1) {
+    html += getFileListRow(i, fileList[i].type, fileList[i].name);
+  }
+  console.log(html);
+  return html;
+}
+function appendFiles() {
+  var
+    i,
+    fileForm = $('#append-files'),
+    len = fileForm[0].files.length;
+  if (len > 0) {
+    for (i = 0; i < len; i += 1) {
+      fileList.push({
+        name: fileForm[0].files[i].name,
+        type: fileForm[0].files[i].type[0]
+      });
+    }
+    fileForm.val('');
+    $('#list-tbody').html(getFileListHtml());
+  }
 }
 
 function moveSelection(e) {
