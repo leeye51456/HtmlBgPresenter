@@ -97,8 +97,51 @@ function appendFiles() {
   }
 }
 
+function getCheckedIndex(reverse) {
+  var result = [];
+  $('#list-tbody').find('input[type="checkbox"]:checked').each(function () {
+    result.push(Number($(this).data('index')));
+  });
+  if (reverse) {
+    return result.reverse();
+  }
+  return result;
+}
+
+function moveOneItem(index, direction) {
+  if (direction < 0 && index > 1) {
+    fileList.splice(index - 1, 2, fileList[index], fileList[index - 1]);
+    return true;
+  } else if (direction > 0 && index < fileList.length - 1) {
+    fileList.splice(index, 2, fileList[index + 1], fileList[index]);
+    return true;
+  }
+  return false;
+}
+function selectItems(arr) {
+  $('#list-tbody')
+    .find('input[type="checkbox"]')
+    .filter(function () {
+      return arr.indexOf(Number($(this).data('index'))) + 1;
+    })
+    .prop('checked', true);
+}
 function moveSelection(e) {
-  //
+  var
+    direction = e.data.direction,
+    continuous = (fileList.length - direction) % fileList.length,
+    checkedIndex = getCheckedIndex(direction + 1),
+    checkedAfterMove = checkedIndex.slice();
+  checkedIndex.forEach(function (item, index) {
+    if (continuous === item) {
+      continuous -= direction;
+    } else {
+      moveOneItem(item, direction);
+      checkedAfterMove[index] += direction;
+    }
+  });
+  displayFileList();
+  selectItems(checkedAfterMove);
 }
 
 function invertSelection() {
@@ -110,10 +153,7 @@ function uncheckSelection() {
   $('#list-tbody').find('input[type="checkbox"]:checked').prop('checked', false);
 }
 function deleteSelection() {
-  var checkedIndex = [];
-  $('#list-tbody').find('input[type="checkbox"]:checked').each(function () {
-    checkedIndex.unshift(Number($(this).data('index')));
-  });
+  var checkedIndex = getCheckedIndex(true);
   checkedIndex.forEach(function (item) {
     fileList.splice(item, 1);
   });
@@ -177,8 +217,11 @@ $(document).ready(function () {
   $('#append-files')
     .on('change', appendFiles)
     .on('focus', blurThis);
-  $('#send-sel-up-button, #send-sel-down-button')
-    .on('click', moveSelection)
+  $('#send-sel-up-button')
+    .on('click', { direction: -1 }, moveSelection)
+    .on('focus', blurThis);
+  $('#send-sel-down-button')
+    .on('click', { direction: 1 }, moveSelection)
     .on('focus', blurThis);
   $('#inv-sel-button')
     .on('click', invertSelection)
