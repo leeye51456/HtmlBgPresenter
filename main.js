@@ -8,6 +8,8 @@ var
   sessionId = Date.now(),
   sessionIdShort = sessionId % 86400000;
 
+var bg = { pvw: 0, pgm: 0 };
+
 
 // functions
 
@@ -47,6 +49,18 @@ function wndInit(e) {
       $('#pgm-div').css('outline-color', '');
       $(wnd).off();
     });
+}
+
+function changePvw(pageNum) {
+  bg.pvw = pageNum;
+  $('#list-tbody')
+    .find('tr')
+    .removeClass('pvw')
+    .filter(function () {
+      return $(this).data('index') === bg.pvw;
+    })
+    .addClass('pvw');
+  // 여기에 pvw 디스플레이 코드 입력
 }
 
 function bgCutBtnClick() {
@@ -166,8 +180,8 @@ function resetList() {
   }
 }
 
-function listClick() {
-  //
+function listClick(e) {
+  changePvw(Number($(e.target).closest('tr').data('index')));
 }
 
 function listDoubleClick() {
