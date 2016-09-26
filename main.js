@@ -196,45 +196,36 @@ $(document).ready(function () {
   document.title = 'HtmlBgPresenter (' + sessionIdShort + ')';
   $('#session-label').html('세션 ' + sessionIdHtml);
   
-  $('#window-button')
-    .on('click', wndInit)
+  $('input[type!="number"],button')
     .on('focus', blurThis);
+  
+  $('#window-button')
+    .on('click', wndInit);
   
   $('#bg-cut-button')
-    .on('click', bgCutBtnClick)
-    .on('focus', blurThis);
+    .on('click', bgCutBtnClick);
   $('#bg-auto-button')
-    .on('click', bgAutoBtnClick)
-    .on('focus', blurThis);
+    .on('click', bgAutoBtnClick);
   
   $('#apply-setting-button')
-    .on('click', applySetting)
-    .on('focus', blurThis);
+    .on('click', applySetting);
   $('#discard-setting-button')
-    .on('click', discardSetting)
-    .on('focus', blurThis);
+    .on('click', discardSetting);
   
   $('#append-files')
-    .on('change', appendFiles)
-    .on('focus', blurThis);
+    .on('change', appendFiles);
   $('#send-sel-up-button')
-    .on('click', { direction: -1 }, moveSelection)
-    .on('focus', blurThis);
+    .on('click', { direction: -1 }, moveSelection);
   $('#send-sel-down-button')
-    .on('click', { direction: 1 }, moveSelection)
-    .on('focus', blurThis);
+    .on('click', { direction: 1 }, moveSelection);
   $('#inv-sel-button')
-    .on('click', invertSelection)
-    .on('focus', blurThis);
+    .on('click', invertSelection);
   $('#unsel-button')
-    .on('click', uncheckSelection)
-    .on('focus', blurThis);
+    .on('click', uncheckSelection);
   $('#del-sel-button')
-    .on('click', deleteSelection)
-    .on('focus', blurThis);
+    .on('click', deleteSelection);
   $('#reset-list-button')
-    .on('click', resetList)
-    .on('focus', blurThis);
+    .on('click', resetList);
   
   $('#list-tbody')
     .on('click', 'tr', listClick)
