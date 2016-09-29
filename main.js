@@ -66,8 +66,10 @@ function displayPvw() {
     }
   }
 }
-function changePvw(pageNum) {
-  bg.pvw = pageNum;
+function updatePvw(pageNum) {
+  if (pageNum || pageNum === 0) {
+    bg.pvw = pageNum;
+  }
   $('#list-tbody')
     .find('tr')
     .removeClass('pvw')
@@ -108,6 +110,7 @@ function displayFileList() {
     html += getFileListRow(i, fileList[i].type, fileList[i].name);
   }
   $('#list-tbody').html(html);
+  updatePvw();
 }
 function appendFiles() {
   var
@@ -140,9 +143,15 @@ function getCheckedIndex(reverse) {
 function moveOneItem(index, direction) {
   if (direction < 0 && index > 1) {
     fileList.splice(index - 1, 2, fileList[index], fileList[index - 1]);
+    if (bg.pvw === index) {
+      bg.pvw -= 1;
+    }
     return true;
   } else if (direction > 0 && index < fileList.length - 1) {
     fileList.splice(index, 2, fileList[index + 1], fileList[index]);
+    if (bg.pvw === index) {
+      bg.pvw += 1;
+    }
     return true;
   }
   return false;
@@ -185,18 +194,22 @@ function deleteSelection() {
   var checkedIndex = getCheckedIndex(true);
   checkedIndex.forEach(function (item) {
     fileList.splice(item, 1);
+    if (bg.pvw === item) {
+      bg.pvw = 0;
+    }
   });
   displayFileList();
 }
 function resetList() {
   if (confirm('리스트를 비우려면 확인을 누르세요.')) {
     fileList = [''];
+    bg.pvw = 0;
     displayFileList();
   }
 }
 
 function listClick(e) {
-  changePvw(Number($(e.target).closest('tr').data('index')));
+  updatePvw(Number($(e.target).closest('tr').data('index')));
 }
 
 function listDoubleClick() {
@@ -224,6 +237,7 @@ $(document).ready(function () {
   
   document.title = 'HtmlBgPresenter (' + sessionIdShort + ')';
   $('#session-label').html('세션 ' + sessionIdHtml);
+  displayFileList();
   
   $('input[type!="number"],button')
     .on('focus', blurThis);
