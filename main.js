@@ -51,6 +51,18 @@ function wndInit(e) {
     });
 }
 
+function displayPvw() {
+  var bgPvwObject = fileList[bg.pvw];
+  if (bg.pvw === 0) {
+    $('#pvw-div').html('');
+  } else if (bgPvwObject.type === 'v') {
+    $('#pvw-div').html('<video src="./src/' + bgPvwObject.name + '" class="pvw-video" autoplay loop muted></video>');
+  } else if (bgPvwObject.type === 'i') {
+    $('#pvw-div').html('<img src="./src/' + bgPvwObject.name + '" class="pvw-img">');
+  } else {
+    $('#pvw-div').html('');
+  }
+}
 function changePvw(pageNum) {
   bg.pvw = pageNum;
   $('#list-tbody')
@@ -60,7 +72,7 @@ function changePvw(pageNum) {
       return $(this).data('index') === bg.pvw;
     })
     .addClass('pvw');
-  // 여기에 pvw 디스플레이 코드 입력
+  displayPvw();
 }
 
 function bgCutBtnClick() {
