@@ -8,7 +8,7 @@ var
   sessionId = Date.now(),
   sessionIdShort = sessionId % 86400000;
 
-var bg = { pvw: 0, pgm: 0 };
+var bg = { pvw: 0, pgm: 0, layer: 'b' };
 
 
 // functions
@@ -32,7 +32,6 @@ function wndInit(e) {
       '<div id="bottom-div"></div>' +
       '<div id="top-div"></div>' +
       '</section>' +
-      '<section id="ftb-section"></section>' +
       '</body>' +
       '</html>');
   } catch (err) {
@@ -78,6 +77,53 @@ function updatePvw(pageNum) {
     })
     .addClass('pvw');
   displayPvw();
+}
+
+function updateWnd(transition) {
+  var
+    newHtml,
+    $wnd = $(wnd.document);
+  
+  if (transition === 'dissolve') {
+    $wnd.find('#bottom-div, #top-div').css('transition', 'opacity 1s');
+  } else if (transition === 'cut') {
+    $wnd.find('#bottom-div, #top-div').css('transition', '');
+  }
+  
+  if (fileList[bg.pgm].type === '') {
+    newHtml = '<div class="black-div"></div>';
+  } else if (fileList[bg.pgm].type === 'v') {
+    newHtml = '<video src="./src/' + fileList[bg.pgm].name + '" autoplay loop muted></video>';
+  } else {
+    newHtml = '<img src="./src/' + fileList[bg.pgm].name + '">';
+  }
+  
+  if (bg.layer === 'b') {
+    bg.layer = 't';
+    $wnd.find('#top-div').html(newHtml);
+    $wnd.find('#top-div').css('opacity', '1'); // 이 내용 딜레이 타이머 콜백으로
+  } else if (bg.layer === 't') {
+    bg.layer = 'b';
+    $wnd.find('#bottom-div').html(newHtml);
+    $wnd.find('#top-div').css('opacity', '0'); // 이 내용 딜레이 타이머 콜백으로
+  }
+}
+function updatePgm(pageNum, transition) {
+  if (!wnd || wnd.closed) {
+    return;
+  }
+  if (pageNum || pageNum === 0) {
+    bg.pgm = pageNum;
+  }
+  $('#list-tbody')
+    .find('tr')
+    .removeClass('pgm')
+    .filter(function () {
+      return $(this).data('index') === bg.pgm;
+    })
+    .addClass('pgm');
+  updateWnd(transition);
+  updatePvw(bg.pgm + 1);
 }
 
 function bgCutBtnClick() {
@@ -212,8 +258,8 @@ function listClick(e) {
   updatePvw(Number($(e.target).closest('tr').data('index')));
 }
 
-function listDoubleClick() {
-  //
+function listDoubleClick(e) {
+  updatePgm(Number($(e.target).closest('tr').data('index')), 'dissolve');
 }
 
 function changeBgCheckbox(e) {
