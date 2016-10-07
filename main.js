@@ -352,6 +352,9 @@ $(document).ready(function () {
     .on('click', 'td:first-child', changeBgCheckbox)
     .on('click', 'input[type="checkbox"]', checkboxInTableClick);
   
+  $(window).on('beforeunload', function () {
+    return '';
+  });
   $(window).on('resize', function () {
     var listHeight = $(window).height() - $('#list-section').offset().top - 30;
     if (Number($(window).height()) >= 480) {
