@@ -33,6 +33,7 @@ function wndInit(e) {
       '<div id="bottom-div"></div>' +
       '<div id="top-div"></div>' +
       '</section>' +
+      '<div id="shield-div"></div>' +
       '</body>' +
       '</html>');
   } catch (err) {

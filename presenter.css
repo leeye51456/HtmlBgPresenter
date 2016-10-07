@@ -10,13 +10,20 @@ body {
   margin: 0;
   padding: 0;
   background-color: #000000;
+  cursor: none;
+}
+body *::selection {
+  background-color: rgba(0, 0, 0, 0);
+}
+body *::-moz-selection {
+  background-color: rgba(0, 0, 0, 0);
 }
 section, div, img, video {
   width: 100%;
   height: 100%;
 }
 
-#bg-section, #bottom-div, #top-div {
+#bg-section, #bottom-div, #top-div, #shield-div {
   position: fixed;
 }
 #bottom-div {
@@ -27,4 +34,7 @@ section, div, img, video {
 }
 .black-div {
   background-color: #000000;
+}
+#shield-div {
+  background-color: rgba(0, 0, 0, 0);
 }
