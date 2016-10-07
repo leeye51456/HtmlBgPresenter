@@ -295,7 +295,6 @@ function documentKeyDown(e) {
 }
 
 
-// 함수 목록 맨 아래에 오도록
 function blurThis(e) {
   $(e.target).trigger('blur');
 }
