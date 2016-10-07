@@ -49,6 +49,7 @@ function wndInit(e) {
     .on('unload', function () {
       bg.pvw = 0;
       bg.pgm = 0;
+      $('#pvw-div').html('');
       $('#list-tbody')
         .find('.pgm, .pvw')
           .removeClass('pgm pvw')
@@ -136,7 +137,9 @@ function updatePgm(pageNum, transition) {
     })
     .addClass('pgm');
   updateWnd(transition);
-  updatePvw(bg.pgm + 1);
+  if (bg.pgm < fileList.length - 1) {
+    updatePvw(bg.pgm + 1);
+  }
 }
 
 function bgCutBtnClick() {
@@ -284,6 +287,13 @@ function checkboxInTableClick(e) {
   e.stopPropagation();
 }
 
+function documentKeyDown(e) {
+  var focusedElementType = $(':focus').attr('type');
+  if (focusedElementType !== 'number' && e.keyCode === 13) {
+    updatePgm(bg.pvw, 'dissolve');
+  }
+}
+
 
 // 함수 목록 맨 아래에 오도록
 function blurThis(e) {
@@ -301,8 +311,9 @@ $(document).ready(function () {
   $('#session-label').html('세션 ' + sessionIdHtml);
   displayFileList();
   
-  $('input[type!="number"],button')
-    .on('focus', blurThis);
+  $(document)
+    .on('focus', 'input[type!="number"],button', blurThis)
+    .on('keydown', documentKeyDown);
   
   $('#window-button')
     .on('click', wndInit);
