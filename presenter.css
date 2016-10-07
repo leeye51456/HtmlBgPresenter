@@ -20,11 +20,9 @@ section, div, img, video {
   position: fixed;
 }
 #bottom-div {
-  transition: opacity 1s;
   opacity: 1;
 }
 #top-div {
-  transition: opacity 1s;
   opacity: 0;
 }
 .black-div {

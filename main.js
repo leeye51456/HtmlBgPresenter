@@ -139,11 +139,11 @@ function updatePgm(pageNum, transition) {
 }
 
 function bgCutBtnClick() {
-  //
+  updatePgm(bg.pvw, 'cut');
 }
 
 function bgAutoBtnClick() {
-  //
+  updatePgm(bg.pvw, 'dissolve');
 }
 
 function applySetting() {
