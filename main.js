@@ -4,11 +4,11 @@
 
 var
   wnd,
-  fileList = [''],
+  fileList = [{ name: '', type: '' }],
   sessionId = Date.now(),
   sessionIdShort = sessionId % 86400000;
 
-var bg = { pvw: 0, pgm: 0, layer: 'b' };
+var bg = { pvw: 0, pgm: 0, layer: 'b', delay: 250, duration: 2 };
 
 
 // functions
@@ -18,6 +18,7 @@ function wndInit(e) {
     wnd.close();
     return;
   }
+  bg.layer = 'b';
   wnd = window.open('', 'wnd' + sessionId, 'scrollbar=no');
   try {
     wnd.document.write('<!doctype html>' +
@@ -45,7 +46,14 @@ function wndInit(e) {
   
   $(wnd)
     .on('unload', function () {
-      $('#pgm-div').css('outline-color', '');
+      bg.pvw = 0;
+      bg.pgm = 0;
+      $('#list-tbody')
+        .find('.pgm, .pvw')
+          .removeClass('pgm pvw')
+          .end()
+        .find('tr:first')
+          .addClass('pvw');
       $(wnd).off();
     });
 }
@@ -85,7 +93,7 @@ function updateWnd(transition) {
     $wnd = $(wnd.document);
   
   if (transition === 'dissolve') {
-    $wnd.find('#bottom-div, #top-div').css('transition', 'opacity 1s');
+    $wnd.find('#bottom-div, #top-div').css('transition', 'opacity ' + bg.duration + 's');
   } else if (transition === 'cut') {
     $wnd.find('#bottom-div, #top-div').css('transition', '');
   }
@@ -101,11 +109,15 @@ function updateWnd(transition) {
   if (bg.layer === 'b') {
     bg.layer = 't';
     $wnd.find('#top-div').html(newHtml);
-    $wnd.find('#top-div').css('opacity', '1'); // 이 내용 딜레이 타이머 콜백으로
+    setTimeout(function () {
+      $wnd.find('#top-div').css('opacity', '1');
+    }, bg.delay);
   } else if (bg.layer === 't') {
     bg.layer = 'b';
     $wnd.find('#bottom-div').html(newHtml);
-    $wnd.find('#top-div').css('opacity', '0'); // 이 내용 딜레이 타이머 콜백으로
+    setTimeout(function () {
+      $wnd.find('#top-div').css('opacity', '0');
+    }, bg.delay);
   }
 }
 function updatePgm(pageNum, transition) {
@@ -248,7 +260,7 @@ function deleteSelection() {
 }
 function resetList() {
   if (confirm('리스트를 비우려면 확인을 누르세요.')) {
-    fileList = [''];
+    fileList = fileList.slice(0, 1);
     bg.pvw = 0;
     displayFileList();
   }
