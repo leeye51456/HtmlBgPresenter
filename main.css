@@ -148,7 +148,7 @@ ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
 }
 #pvw-div::after {
   content: "PVW";
-  position: fixed;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1px 5px;
   color: rgba(255, 255, 255, 0.5);
@@ -191,6 +191,8 @@ ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
 
 #list-section {
   clear: both;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 #list-table {
   border-collapse: collapse;

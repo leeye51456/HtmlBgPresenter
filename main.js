@@ -294,7 +294,8 @@ function blurThis(e) {
 // event listeners
 $(document).ready(function () {
   var
-    sessionIdHtml = '<small>' + Math.floor(sessionId / 86400000) + '-</small><b>' + (sessionId % 86400000) + '</b>';
+    sessionIdHtml = '<small>' + Math.floor(sessionId / 86400000) + '-</small><b>' + (sessionId % 86400000) + '</b>',
+    listHeight = $(window).height() - $('#list-table').offset().top - 30;
   
   document.title = 'HtmlBgPresenter (' + sessionIdShort + ')';
   $('#session-label').html('세션 ' + sessionIdHtml);
@@ -331,9 +332,20 @@ $(document).ready(function () {
   $('#reset-list-button')
     .on('click', resetList);
   
+  $('#list-section')
+    .css('height', listHeight);
+  
   $('#list-tbody')
     .on('click', 'tr', listClick)
     .on('dblclick', 'tr', listDoubleClick)
     .on('click', 'td:first-child', changeBgCheckbox)
     .on('click', 'input[type="checkbox"]', checkboxInTableClick);
+  
+  $(window).on('resize', function () {
+    var listHeight = $(window).height() - $('#list-section').offset().top - 30;
+    if (Number($(window).height()) >= 480) {
+      $('#list-section')
+        .css('height', String(listHeight));
+    }
+  });
 });
