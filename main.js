@@ -147,10 +147,12 @@ function bgAutoBtnClick() {
 }
 
 function applySetting() {
-  //
+  bg.delay = Number($('#delay-number').val());
+  bg.duration = Number($('#duration-number').val());
 }
 function discardSetting() {
-  //
+  $('#delay-number').val(bg.delay);
+  $('#duration-number').val(bg.duration);
 }
 
 function getFileListRow(index, type, name) {
